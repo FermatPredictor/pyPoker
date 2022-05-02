@@ -10,6 +10,11 @@ class Card():
         """
         self.value=value
         self.suit=suit
+        d = {'c':0, 'd':1, 'h':2, 's':3}
+        self.id = d[suit]*13+value
+    
+    def __eq__(self, other):
+        return self.id == other.id
 
     def __repr__(self):
         suits = {"h":"♡", "s":"♠", "d":"♢", "c":"♣"}
