@@ -46,7 +46,7 @@ def simulate_game(myCard, n, field):
     
     return ranking
 
-def batch_simulate_game(myCard, n, field, game_num=10000):
+def batch_simulate_game(myCard, n, field, game_num=1000):
     start = time.time()
     p_cnt = percent_dict(Counter([simulate_game(myCard, n, field) for i in range(game_num)]))
     ev = sum(i*p_cnt.get(i, 0) for i in range(1, n+2))/100
@@ -66,18 +66,26 @@ def main():
         n = int(n)
         batch_simulate_game(myCard, n, [])
         
-        i_str = input("請輸入前三張公共牌: ")
-        field = [input_card(s) for s in i_str.strip().split()]
-        batch_simulate_game(myCard, n, field)
+        try:
+            i_str = input("請輸入前三張公共牌: ")
+            field = [input_card(s) for s in i_str.strip().split()]
+            batch_simulate_game(myCard, n, field)
+        except:
+            continue
         
+        try:
+            i_str = input("請輸入第四張公共牌: ")
+            field.append(input_card(i_str.strip()))
+            batch_simulate_game(myCard, n, field)
+        except:
+            continue
         
-        i_str = input("請輸入第四張公共牌: ")
-        field.append(input_card(i_str.strip()))
-        batch_simulate_game(myCard, n, field)
-        
-        i_str = input("請輸入第五張公共牌: ")
-        field.append(input_card(i_str.strip()))
-        batch_simulate_game(myCard, n, field)
+        try:
+            i_str = input("請輸入第五張公共牌: ")
+            field.append(input_card(i_str.strip()))
+            batch_simulate_game(myCard, n, field)
+        except:
+            continue
      
 
 if __name__=='__main__':
